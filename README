@@ -1,0 +1,27 @@
+dtach-watch
+
+This is a small application that watches a dtach socket for either activity or inactivity.
+
+So, if you have a chat window, or some sort of long running process like a big copy in a dtach session, you can run:
+
+dtach-watch /path/to/dtach/socket
+
+This will return with an exit code of 0 whenever any activity is witnessed on that socket.
+You can dtach from that session and just wait for something to happen to notify you.
+
+You can, for example run:
+dtach-watch /path/to/dtach/socket && notify-send "Chat Activity" "Activity detected in /path/to/dtach/socket"
+
+This will pop up an on-screen notification when something happens in /path/to/dtach/socket, whether anything is connected to that session or not.
+
+There is also silent mode.
+In this case dtach-watch watches for inactivity rather than activity.
+
+This is good for things like updates or long compiles.
+
+In this case one gives the -s option along with a time in seconds to wait before deciding the terminal is inactive.
+
+dtach-watch -s5 /path/to/dtach/socket && notify-send "Build Complete" "Build running in /path/to/dtach/socket has completed or stalled."
+Will watch the session, again whether anyone else is connected or not, until nothing happens for 5 seconds in a row.
+Then it'll notify you to go check out what's going on.
+
