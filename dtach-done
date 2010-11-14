@@ -1,0 +1,11 @@
+#!/bin/bash
+
+dtach_socket="$1"
+
+if [ -z "$dtach_socket" ]; then
+	echo "Need to give a socket"
+	exit 1
+fi
+
+# Get the socket from the last executed command
+dtach-watch -s 10 "$dtach_socket" && notify-send 'Command Execution Complete' "Socket $dtach_socket in inactive"

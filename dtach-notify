@@ -1,0 +1,17 @@
+#!/bin/sh
+
+socket="$1"
+summary="$2"
+body="$3"
+
+if [ -z "$socket" ]; then
+	echo "You must give a socket to watch"
+	exit;
+fi
+
+if [ -z "$summary" ]; then
+	summary="Watched Socket Activity"
+	body="Socket '$socket' has become active"
+fi
+
+dtach-watch "$socket" && notify-send "$summary" "$body"
